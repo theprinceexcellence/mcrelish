@@ -1,0 +1,286 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * McRelish design system.
+ * Palette and typography derived from the existing McRelish brand:
+ * red #C8392B, gold #C4920A, ink #0F0E0D, cream #FAF8F5, line #E8E2D9.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-gold: var(--gold);
+  --color-gold-foreground: var(--gold-foreground);
+  --color-ink: var(--ink);
+  --color-cream: var(--cream);
+  --color-surface: var(--surface);
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --shadow-card: 0 1px 2px rgba(15, 14, 13, 0.04), 0 12px 32px -18px rgba(15, 14, 13, 0.35);
+  --shadow-lift: 0 18px 40px -20px rgba(200, 57, 43, 0.45);
+}
+
+:root {
+  --radius: 1rem;
+  --background: oklch(0.99 0.005 85);
+  --foreground: oklch(0.17 0.008 60);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.17 0.008 60);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.17 0.008 60);
+  --primary: oklch(0.552 0.176 29.5);
+  --primary-foreground: oklch(0.985 0.006 85);
+  --secondary: oklch(0.955 0.012 85);
+  --secondary-foreground: oklch(0.2 0.01 60);
+  --muted: oklch(0.955 0.012 85);
+  --muted-foreground: oklch(0.52 0.014 65);
+  --accent: oklch(0.945 0.03 85);
+  --accent-foreground: oklch(0.32 0.08 60);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0.006 85);
+  --border: oklch(0.906 0.013 80);
+  --input: oklch(0.906 0.013 80);
+  --ring: oklch(0.552 0.176 29.5);
+  --gold: oklch(0.66 0.125 82);
+  --gold-foreground: oklch(0.17 0.008 60);
+  --ink: oklch(0.17 0.008 60);
+  --cream: oklch(0.973 0.008 85);
+  --surface: oklch(0.985 0.006 85);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    scrollbar-gutter: stable;
+  }
+
+  html body[data-scroll-locked] {
+    padding-right: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+@utility eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-card);
+  border-radius: 100px;
+  padding: 0.3rem 0.85rem;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+
+@utility btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 100px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  transition:
+    background 0.22s ease,
+    color 0.22s ease,
+    transform 0.18s ease,
+    box-shadow 0.22s ease;
+  white-space: nowrap;
+}
+
+@utility btn-primary {
+  @apply btn-base;
+  background: var(--color-primary);
+  color: var(--color-primary-foreground);
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lift);
+  }
+  &:disabled {
+    opacity: 0.5;
+    transform: none;
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+}
+
+@utility btn-ink {
+  @apply btn-base;
+  background: var(--color-ink);
+  color: var(--color-cream);
+  &:hover {
+    background: var(--color-primary);
+    transform: translateY(-1px);
+  }
+}
+
+@utility btn-outline {
+  @apply btn-base;
+  border: 1px solid var(--color-border);
+  background: var(--color-card);
+  color: var(--color-foreground);
+  &:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+}
+
+@utility card-surface {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-card);
+}
+
+@utility section-pad {
+  padding-block: 3rem;
+  @media (width >= 1024px) {
+    padding-block: 6rem;
+  }
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility glass-overlay {
+  background: color-mix(in oklab, var(--color-ink) 38%, transparent);
+  backdrop-filter: blur(14px) saturate(150%);
+  animation: overlay-in 450ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  &[data-state="closed"] { animation: overlay-out 400ms cubic-bezier(0.4, 0, 0.2, 1) both; pointer-events: none; }
+}
+
+/* iOS-style sheet backdrop: soft tint, light blur, synced to the 480ms glide. */
+@utility sheet-overlay {
+  background: color-mix(in oklab, var(--color-ink) 20%, transparent);
+  backdrop-filter: blur(4px);
+  animation: overlay-in 480ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  &[data-state="closed"] { animation: overlay-out 380ms cubic-bezier(0.16, 1, 0.3, 1) both; pointer-events: none; }
+}
+
+/* Frosted glass pane with specular edge and deep lift shadow. */
+@utility glass-sheet {
+  background: color-mix(in oklab, var(--color-card) 94%, transparent);
+  backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid color-mix(in oklab, var(--color-card) 40%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, var(--color-card) 60%, transparent),
+    0 -8px 24px -12px rgba(15, 14, 13, 0.18),
+    0 40px 80px -20px rgba(15, 14, 13, 0.45);
+  .dark & {
+    background: color-mix(in oklab, var(--color-ink) 94%, transparent);
+    border-color: color-mix(in oklab, var(--color-cream) 10%, transparent);
+  }
+}
+
+@utility sheet-in {
+  animation: sheet-up 480ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  [data-state="closed"] > & { animation: sheet-down 380ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+  @media (width >= 640px) {
+    animation-name: pop-in;
+    [data-state="closed"] > & { animation-name: pop-out; }
+  }
+}
+
+@utility drawer-in {
+  animation: drawer-right 540ms cubic-bezier(0.32, 0.72, 0, 1) both;
+  [data-state="closed"] > & { animation: drawer-right-out 400ms cubic-bezier(0.32, 0.72, 0, 1) both; }
+}
+
+@utility menu-in {
+  animation: menu-down 420ms cubic-bezier(0.32, 0.72, 0, 1) both;
+  &[data-state="closed"] { animation: menu-up 360ms cubic-bezier(0.4, 0, 0.2, 1) both; }
+}
+
+@utility collapse-grid {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  & > * { overflow: hidden; min-height: 0; }
+  &[data-open="true"] { grid-template-rows: 1fr; }
+  @media (width >= 768px) { grid-template-rows: 1fr; }
+}
+
+@keyframes overlay-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes sheet-up { from { transform: translateY(100%); } to { transform: translateY(0); } }
+@keyframes pop-in { from { opacity: 0; transform: translateY(16px) scale(0.96); } to { opacity: 1; transform: none; } }
+@keyframes drawer-right { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes overlay-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes sheet-down { from { transform: translateY(0); } to { transform: translateY(100%); } }
+@keyframes pop-out { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateY(24px) scale(0.97); } }
+@keyframes drawer-right-out { from { transform: translateX(0); } to { transform: translateX(100%); } }
+@keyframes menu-down { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: none; } }
+@keyframes menu-up { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateY(-12px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-overlay, .sheet-overlay, .sheet-in, .drawer-in, .menu-in { animation-duration: 1ms !important; }
+}
+
+@utility safe-bottom {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+.admin-ui :is(h1, h2, h3, h4) {
+  font-family: var(--font-sans);
+  letter-spacing: -0.015em;
+}

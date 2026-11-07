@@ -1,0 +1,21 @@
+Options -MultiViews -Indexes
+DirectoryIndex _shell.html
+RewriteEngine On
+RewriteBase /
+
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+RewriteRule ^ _shell.html [L]
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css|png|jpg|jpeg|webp|svg|woff2?)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
